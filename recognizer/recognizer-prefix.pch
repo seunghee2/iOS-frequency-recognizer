@@ -1,0 +1,23 @@
+//
+//  recognizer-prefix.pch
+//  recognizer
+//
+//  Created by 이승희 on 7/15/16.
+//  Copyright © 2016 이승희. All rights reserved.
+//
+
+#ifndef recognizer_prefix_pch
+#define recognizer_prefix_pch
+
+#import <Availability.h>
+
+#ifndef __IPHONE_5_0
+#warning "This project uses features only available in iOS SDK 5.0 and later."
+#endif
+
+
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+
+#endif /* recognizer_prefix_pch */
+
