@@ -135,6 +135,7 @@ void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
         vDSP_blkman_window(windowBuffer, windowLength, 0);
         vDSP_vmul(dataAccumulator, 1, windowBuffer, 1, dataAccumulator, 1, accumulatorDataLength);
         
+        
         Float32 maxHzValue = 0;
         Float32 maxHz = strongestFrequencyHz(dataAccumulator, fftConverter, accumulatorDataLength, &maxHzValue);
         

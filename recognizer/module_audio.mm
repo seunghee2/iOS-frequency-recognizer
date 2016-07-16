@@ -173,7 +173,7 @@ static OSStatus SmallRenderProc(void *inRefCon,
         if(err)
         {
             // print error
-            printf("ModuleAudio: rencer procedure encountered error %d\n", (int)err);
+            NSLog(@"ModuleAudio: render procedure encountered error %d\n", (int)err);
             return err;
         }
     }
@@ -204,7 +204,7 @@ static void rioInterruptionListener(void *inUserData, UInt32 inInterruption)
 {
     if (inUserData == NULL)
     {
-        printf("NULL \n");
+        NSLog(@"NULL");
         return;
     }
     
@@ -238,7 +238,7 @@ static void propListener(void *inClientData, AudioSessionPropertyID inID, UInt32
         err = AudioComponentInstanceDispose(ModuleAudio::m_au);
         if(err)
         {
-            // TODO: 'couldn't dispose remote i/o unit'
+            NSLog(@"Couldn't dispose remote I/O unit");
             return;
             
         }
@@ -262,7 +262,7 @@ static void propListener(void *inClientData, AudioSessionPropertyID inID, UInt32
         
         if(err)
         {
-            // TODO: 'couldn't get new sample rate'
+            NSLog(@"Couldn't get new sample rate");
             return;
             
         }
@@ -275,7 +275,7 @@ static void propListener(void *inClientData, AudioSessionPropertyID inID, UInt32
         
         if(err)
         {
-            // TODO: 'couldn't start unit'
+            NSLog(@"Couldn't start unit");
             return;
         
         }
@@ -287,7 +287,7 @@ static void propListener(void *inClientData, AudioSessionPropertyID inID, UInt32
         
         if(err)
         {
-            // TODO: 'couldn't get new audio route'
+            NSLog(@"Couldn't get new audio route");
             return;
         
         }
@@ -306,7 +306,7 @@ static void propListener(void *inClientData, AudioSessionPropertyID inID, UInt32
             }
             else
             {
-                // unknown
+                NSLog(@"unknown");
             }
         }
     }
@@ -339,7 +339,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't open the remote I/O unit'
+        NSLog(@"Couldn't open the remote I/O unit");
         return false;
     }
     
@@ -350,7 +350,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't enable input on the remote I/O Unit'
+        NSLog(@"Couldn't enable input on the remote I/O Unit");
         return false;
     }
     
@@ -359,7 +359,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't set remote i/o render callback'
+        NSLog(@"Couldn't set remote I/O render callback");
         return false;
     }
     
@@ -370,7 +370,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't get the remote I/O unit's output client format'
+        NSLog(@"Couldn't get the remote I/O unit's output client format");
         return false;
     }
     
@@ -391,7 +391,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't set the remote I/O unit's input client format'
+        NSLog(@"Couldn't set the remote I/O unit's input client format");
         return false;
     }
     
@@ -402,7 +402,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't get the remote I/O unit's output client format'
+        NSLog(@"Couldn't get the remote I/O unit's output client format");
         return false;
     }
     
@@ -410,7 +410,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't set the remote I/O unit's input client format'
+        NSLog(@"Couldn't set the remote I/O unit's input client format");
         return false;
     }
     
@@ -419,7 +419,7 @@ bool setupRemoteIO(AudioUnit &inRemoteIOUnit, AURenderCallbackStruct inRenderPro
     
     if(err)
     {
-        // TODO: 'couldn't initialize the remote I/O unit'
+        NSLog(@"Couldn't initialize the remote I/O unit");
         return false;
     }
     
@@ -435,7 +435,6 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     // sanity check
     if(m_hasInit)
     {
-        // TODO: error message
         NSLog(@"error = hasInit");
         
         return false;
@@ -480,8 +479,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     
     if(err)
     {
-        // TODO: 'couldn't initialize audio session'
-        NSLog(@"error = AudioSessionInitialize");
+        NSLog(@"Couldn't initialize audio session");
     }
     
     UInt32 category = kAudioSessionCategory_PlayAndRecord;
@@ -491,8 +489,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     
     if(err)
     {
-        // TODO: 'couldn't set audio category'
-        NSLog(@"error = couldn't set audio category");
+        NSLog(@"Couldn't set audio category");
         
         return false;
     }
@@ -518,8 +515,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     
     if(err)
     {
-        // couldn't set property listener
-        NSLog(@"error = couldn't set property listener");
+        NSLog(@"Couldn't set property listener");
         
         return false;
     }
@@ -537,7 +533,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
         
         if(err)
         {
-            // couldn't get new audio route
+            NSLog(@"Couldn't get enw audio route");
         }
         
         UInt32 override;
@@ -565,8 +561,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
         err = AudioSessionSetProperty(kAudioSessionProperty_OverrideAudioRoute, sizeof(override), &override);
         if(err)
         {
-            // couldn't get new audio route
-            NSLog(@"error = couldn't set new audio route");
+            NSLog(@"Couldn't set new audio route");
             
             return false;
         }
@@ -580,7 +575,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     
     if(err)
     {
-        NSLog(@"error = couldn't set preferred sample rate");
+        NSLog(@"Couldn't set preferred sample rate");
         return false;
     }
     
@@ -591,7 +586,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     
     if(err)
     {
-        NSLog(@"error = couldn't get hw sample rate");
+        NSLog(@"Couldn't get hw sample rate");
         return false;
     }
     
@@ -608,7 +603,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     
     if(!result)
     {
-        NSLog(@"error = couldn't setup remote i/o unit");
+        NSLog(@"Couldn't setup remote i/o unit");
         return false;
     }
     
@@ -618,7 +613,7 @@ bool ModuleAudio::init(Float64 srate, UInt32 frameSize, UInt32 numChannels, bool
     // make sure
     if(!m_info->m_ioBuffer)
     {
-        NSLog(@"error = couldn't allocate memory for I/O buffer");
+        NSLog(@"Couldn't allocate memory for I/O buffer");
         return false;
     }
     
@@ -734,11 +729,11 @@ void ModuleAudio::checkInput()
     
     if(err)
     {
-        // TODO: 'warning: unable to determine availability of audio input'
+        NSLog(@"warning: unable to dertermine availability of audio input");
     }
     else if (!has_input)
     {
-        // TODO: 'warning: full duplex enabled without available input'
+        NSLog(@"warning: full duplex enabled without available input");
         m_handleInput = false;
     }
 }
