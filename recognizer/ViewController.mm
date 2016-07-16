@@ -9,12 +9,14 @@
 #import "ViewController.h"
 #import "module_audio.h" // stuff that helps set up low-level audio
 #import "FFTHelper.h"
+#import "GraphView.h"
 
 #define SAMPLE_RATE     44100
 #define FRAMESIZE       512
 #define NUMCHANNELS     2
 #define kOutputBus      0
 #define kInputBus       1
+
 
 // Nyquist Maximum Frequency
 const Float32 NyquistMaxFreq = SAMPLE_RATE / 2.0;
@@ -85,6 +87,7 @@ Float32         *windowBuffer = NULL;
 static Float32 vectorMaxValueACC32_index(Float32 *vector, unsigned long size, long step, unsigned long *outIndex)
 {
     Float32 maxVal;
+    //vDSP_minvi(vector, step, &maxVal, outIndex, size);
     vDSP_maxvi(vector, step, &maxVal, outIndex, size);
     
     return maxVal;
@@ -101,7 +104,7 @@ static Float32 strongestFrequencyHz(Float32 *buffer, FFTHelperRef *fftHelper, UI
     
     Float32 max = 0;
     unsigned long maxIndex = 0;
-    
+
     max = vectorMaxValueACC32_index(fftData, length, 1, &maxIndex);
     
     if(freqValue != NULL)
@@ -160,6 +163,10 @@ void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
+    scroller.contentSize = CGSizeMake(kDefaultGraphWidth, kGraphHeight);
+    
     
     labelToUpdate = HzValueLabel;
     

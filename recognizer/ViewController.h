@@ -11,6 +11,8 @@
 @interface ViewController : UIViewController {
     
     __weak IBOutlet UILabel *HzValueLabel;
+    __weak IBOutlet UIScrollView *scroller;
+
 }
 
 
