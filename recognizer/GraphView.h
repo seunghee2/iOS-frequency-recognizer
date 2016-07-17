@@ -8,15 +8,24 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GraphView : UIView
+@interface GraphView : UIView{
+    CGContextRef context;
+    CAShapeLayer *slB;
+    
+}
+
+@property (nonatomic, retain) NSMutableArray* data;
 
 #define kStepY 50
-#define kOffsetY 10
-#define kGraphHeight 310
-#define kDefaultGraphWidth 900
-#define kOffsetX 10
+#define kOffsetY 0
+#define kGraphHeight 300
+#define kDefaultGraphWidth 2000
+#define kOffsetX 0
 #define kStepX 50
-#define kGraphBottom 310
+#define kGraphBottom 300
 #define kGraphTop 0
 
+- (void)addData:(NSNumber *) newData;
+
 @end
+

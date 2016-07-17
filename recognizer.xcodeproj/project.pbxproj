@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1E3314E61D3B87F1007CBBEE /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E3314E51D3B87F1007CBBEE /* QuartzCore.framework */; };
 		1E45D97F1D3A218E0046F47A /* GraphView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E45D97E1D3A218E0046F47A /* GraphView.m */; };
 		1EBCC33B1D37805500FF0C13 /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EBCC33A1D37805500FF0C13 /* main.mm */; };
 		1EBCC33E1D37805500FF0C13 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1EBCC33D1D37805500FF0C13 /* AppDelegate.mm */; };
@@ -26,6 +27,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1E3314E51D3B87F1007CBBEE /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		1E45D97D1D3A218E0046F47A /* GraphView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraphView.h; sourceTree = "<group>"; };
 		1E45D97E1D3A218E0046F47A /* GraphView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraphView.m; sourceTree = "<group>"; };
 		1EBCC3361D37805500FF0C13 /* recognizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = recognizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1E3314E61D3B87F1007CBBEE /* QuartzCore.framework in Frameworks */,
 				1EBCC35D1D37824500FF0C13 /* CoreGraphics.framework in Frameworks */,
 				1EBCC35B1D37823D00FF0C13 /* Accelerate.framework in Frameworks */,
 				1EBCC3591D37823600FF0C13 /* MediaPlayer.framework in Frameworks */,
@@ -74,6 +77,7 @@
 		1EBCC32D1D37805500FF0C13 = {
 			isa = PBXGroup;
 			children = (
+				1E3314E51D3B87F1007CBBEE /* QuartzCore.framework */,
 				1EBCC35E1D37827C00FF0C13 /* Framework */,
 				1EBCC3381D37805500FF0C13 /* recognizer */,
 				1EBCC3371D37805500FF0C13 /* Products */,

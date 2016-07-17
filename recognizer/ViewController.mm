@@ -118,6 +118,8 @@ static Float32 strongestFrequencyHz(Float32 *buffer, FFTHelperRef *fftHelper, UI
 }
 
 __weak UILabel *labelToUpdate = nil;
+GraphView *tmp = [[GraphView alloc]init];
+int count = 0;
 
 //#pragma mark MAIN CALLBACK
 void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
@@ -143,9 +145,17 @@ void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
         Float32 maxHz = strongestFrequencyHz(dataAccumulator, fftConverter, accumulatorDataLength, &maxHzValue);
         
         NSLog(@"max Hz = %0.3f", maxHz);
+        
+        NSNumber *num = [NSNumber numberWithFloat:maxHz];
+
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             // update UI only on main thread
             labelToUpdate.text = [NSString stringWithFormat:@"%0.3f HZ", maxHz];
+            [tmp addData:num];
+            NSLog(@"graphView: %f", [[tmp.data objectAtIndex:count] floatValue]);
+            count++;
+
         });
         
         // empty the accumulator when finished
@@ -155,20 +165,22 @@ void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
     memset(buffer, 0, sizeof(Float32) * frameSize * NUMCHANNELS);
 }
 
+
 @interface ViewController ()
+
 
 @end
 
 @implementation ViewController
+@synthesize graphView;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
     scroller.contentSize = CGSizeMake(kDefaultGraphWidth, kGraphHeight);
     
-    
     labelToUpdate = HzValueLabel;
+    tmp = graphView;
     
     // initialize stuff
     fftConverter = FFTHelperCreate(accumulatorDataLength);
@@ -176,6 +188,7 @@ void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
     
     [self initModuleAudio];
 }
+
 
 -(void)initModuleAudio {
     bool result = false;

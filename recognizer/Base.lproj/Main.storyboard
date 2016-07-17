@@ -30,10 +30,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DP7-Em-QYc">
-                                <rect key="frame" x="0.0" y="229" width="375" height="310"/>
+                                <rect key="frame" x="0.0" y="229" width="375" height="300"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="U01-9i-UKy" customClass="GraphView">
-                                        <rect key="frame" x="0.0" y="0.0" width="900" height="310"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="2000" height="300"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
@@ -44,6 +44,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="HzValueLabel" destination="OPC-nB-GVQ" id="dnZ-P6-Vkx"/>
+                        <outlet property="graphView" destination="U01-9i-UKy" id="E6F-ed-Js2"/>
                         <outlet property="scroller" destination="DP7-Em-QYc" id="F45-5M-Rgw"/>
                     </connections>
                 </viewController>
