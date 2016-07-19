@@ -89,7 +89,7 @@ static Float32 vectorMaxValueACC32_index(Float32 *vector, unsigned long size, lo
     Float32 maxVal;
     //vDSP_minvi(vector, step, &maxVal, outIndex, size);
     vDSP_maxvi(vector, step, &maxVal, outIndex, size);
-    
+
     return maxVal;
 }
 
@@ -118,7 +118,7 @@ static Float32 strongestFrequencyHz(Float32 *buffer, FFTHelperRef *fftHelper, UI
 }
 
 __weak UILabel *labelToUpdate = nil;
-GraphView *tmp = [[GraphView alloc]init];
+GraphView *graphViewTemp = [[GraphView alloc]init];
 int count = 0;
 
 //#pragma mark MAIN CALLBACK
@@ -152,8 +152,7 @@ void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
         dispatch_async(dispatch_get_main_queue(), ^{
             // update UI only on main thread
             labelToUpdate.text = [NSString stringWithFormat:@"%0.3f HZ", maxHz];
-            [tmp addData:num];
-            NSLog(@"graphView: %f", [[tmp.data objectAtIndex:count] floatValue]);
+            [graphViewTemp addData:num];
             count++;
 
         });
@@ -180,7 +179,7 @@ void AudioCallback(Float32 *buffer, UInt32 frameSize, void *userData)
     scroller.contentSize = CGSizeMake(kDefaultGraphWidth, kGraphHeight);
     
     labelToUpdate = HzValueLabel;
-    tmp = graphView;
+    graphViewTemp = graphView;
     
     // initialize stuff
     fftConverter = FFTHelperCreate(accumulatorDataLength);

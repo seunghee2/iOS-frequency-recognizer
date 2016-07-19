@@ -20,9 +20,13 @@
     if(self)
     {
         self.data = [[NSMutableArray alloc]init];
+        
+        path = [[UIBezierPath alloc]init];
+        count = 0;
+        
         slB = [[CAShapeLayer alloc] init];
-        slB.fillColor = [UIColor clearColor].CGColor;
-        slB.strokeColor = [UIColor redColor].CGColor;
+        slB.fillColor = [UIColor orangeColor].CGColor;
+        slB.strokeColor = [UIColor orangeColor].CGColor;
         slB.lineWidth = 2;
         [self.layer addSublayer:slB];
     }
@@ -30,8 +34,29 @@
 }
 - (void)addData:(NSNumber *) newData{
     [self.data addObject:newData];
+    count++;
+    [self drawLine:count];
+    NSLog(@"%d", count);
 }
 
+-(void)drawLine:(int) index
+{
+    float px = kStepX * (index - 1);
+    float py = 350 - [[data objectAtIndex:(index - 1)] floatValue] / 100;
+   
+    if (index == 1)
+    {
+        [path appendPath:[UIBezierPath bezierPathWithRoundedRect:CGRectMake(px, py, 6, 6) cornerRadius:5]];
+        [path moveToPoint:CGPointMake(px + 3, py + 3)];
+    }
+    else
+    {
+        [path addLineToPoint:CGPointMake(px + 3, py + 3)];
+        [path appendPath:[UIBezierPath bezierPathWithRoundedRect:CGRectMake(px, py, 5, 5) cornerRadius:5]];
+        [path moveToPoint:CGPointMake(px + 3, py + 3)];
+    }
+    slB.path = path.CGPath;
+}
 
 - (void)drawRect:(CGRect)rect
 {
@@ -57,62 +82,12 @@
         CGContextAddLineToPoint(context, kDefaultGraphWidth, kGraphBottom - kOffsetY - i * kStepY);
     }
     
-    
     CGFloat dash[] = {2.0, 2.0};
     CGContextSetLineDash(context, 0.0, dash, 2);
     
     CGContextStrokePath(context);
-    
-   
-    NSTimer* timer = [NSTimer timerWithTimeInterval:3.0f target:self selector:@selector(drawLine) userInfo:nil repeats:YES];
-    [[NSRunLoop mainRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
-    
 }
 
--(void)drawLine
-{
-    if([data count] > 0){
-        
-        UIBezierPath *path = [[UIBezierPath alloc]init];
-        for(int i = 0; i < [data count]; i++)
-        {
-            float px = kStepX * i;
-            float py = 200 - [[data objectAtIndex:i] floatValue] / 1000 * 20;
-            if(i == 0)
-            {
-                [path appendPath:[UIBezierPath bezierPathWithRoundedRect:CGRectMake(px, py, 10, 10) cornerRadius:5]];
-                [path moveToPoint:CGPointMake(px + 5, py + 5)];
-            }
-            else
-            {
-                [path addLineToPoint:CGPointMake(px + 5, py + 5)];
-                [path appendPath:[UIBezierPath bezierPathWithRoundedRect:CGRectMake(px, py, 10, 10) cornerRadius:5]];
-                [path moveToPoint:CGPointMake(px + 5, py + 5)];
-            }
-            slB.path = path.CGPath;
-        }
-        
-        /*
-        CGContextSetLineWidth(context, 2.0);
-        CGContextSetStrokeColorWithColor(context, [[UIColor colorWithRed:1.0 green:0.5 blue:0 alpha:1.0] CGColor]);
-        
-        int maxGraphHeight = kGraphHeight - kOffsetY;
-        CGContextBeginPath(context);
-        
-        float tmp = [[data objectAtIndex:0] floatValue] / 1000;
 
-        CGContextMoveToPoint(context, kOffsetX, kGraphHeight - maxGraphHeight * tmp);
-        
-        for (int i = 1; i < data.count; i++)
-        {
-            float value = [[data objectAtIndex:i] floatValue] / 1000;
-            CGContextAddLineToPoint(context, kOffsetX + i * kStepX, kGraphHeight - maxGraphHeight * value);
-            NSLog(@"data : %0.3f", value);
-        }
-        
-        CGContextDrawPath(context, kCGPathStroke);
-        */
-    }
-}
 
 @end

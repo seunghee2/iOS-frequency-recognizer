@@ -11,18 +11,19 @@
 @interface GraphView : UIView{
     CGContextRef context;
     CAShapeLayer *slB;
-    
+    int count;
+    UIBezierPath *path;
 }
 
 @property (nonatomic, retain) NSMutableArray* data;
 
 #define kStepY 50
 #define kOffsetY 0
-#define kGraphHeight 300
+#define kGraphHeight 400
 #define kDefaultGraphWidth 2000
-#define kOffsetX 0
+#define kOffsetX 3
 #define kStepX 50
-#define kGraphBottom 300
+#define kGraphBottom 400
 #define kGraphTop 0
 
 - (void)addData:(NSNumber *) newData;
